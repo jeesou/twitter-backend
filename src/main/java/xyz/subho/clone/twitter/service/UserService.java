@@ -35,9 +35,9 @@ public interface UserService {
 
   public UserModel editUser(UserModel user);
 
-  public boolean addFollower(UUID followerId);
+  public boolean addFollower(UUID followerId, UUID userId);
 
-  public boolean removeFollower(UUID followerId);
+  public boolean removeFollower(UUID followerId, UUID userId);
 
   public List<UserModel> getFollowers(UUID userId);
 

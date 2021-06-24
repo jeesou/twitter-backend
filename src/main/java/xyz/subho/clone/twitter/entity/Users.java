@@ -88,4 +88,20 @@ public class Users {
   @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Posts> userPosts = new ArrayList<>();
+
+  public void setFollower(final UUID userId) {
+    follower.put(userId, new Date());
+  }
+
+  public void setFollowing(final UUID userId) {
+    following.put(userId, new Date());
+  }
+
+  public void removeFollower(final UUID userId) {
+    follower.remove(userId);
+  }
+
+  public void removeFollowing(final UUID userId) {
+    following.remove(userId);
+  }
 }
