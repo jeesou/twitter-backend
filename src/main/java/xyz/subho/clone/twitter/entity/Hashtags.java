@@ -30,13 +30,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table(name = "hashtags")
+@Table( name = "hashtags",
+		indexes = {@Index(columnList = "tag")})
 @Data
 public class Hashtags {
 
@@ -55,6 +59,10 @@ public class Hashtags {
   @JsonIgnore
   private List<HashtagPosts> hashtagPosts = new ArrayList<>();
 
+  @CreatedDate
   private Date createdAt;
+  
+  @UpdateTimestamp
   private Date updatedAt;
+  
 }

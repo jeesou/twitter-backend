@@ -34,7 +34,7 @@ public class HashtagMapper implements Mapper<Hashtags, HashtagModel> {
   }
 
   @Override
-  public Hashtags transformback(HashtagModel hashtagModel) {
+  public Hashtags transformBack(HashtagModel hashtagModel) {
     var hashtag = new Hashtags();
     BeanUtils.copyProperties(hashtagModel, hashtag);
     return hashtag;

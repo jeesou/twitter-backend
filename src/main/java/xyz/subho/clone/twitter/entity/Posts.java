@@ -37,6 +37,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.Data;
 
 @Entity
@@ -53,6 +58,7 @@ public class Posts {
 
   @ManyToOne
   @JoinColumn(name = "user_id")
+  @CreatedBy
   private Users user;
 
   @ElementCollection private Map<String, Date> images = new HashMap<>(4); // maximum of 4 images
@@ -69,8 +75,13 @@ public class Posts {
   @Column(name = "reply_to_id")
   private UUID replyToId;
 
+  @CreatedDate
   private Date timestamp;
+  
+  @CreatedDate
   private Date createdAt;
+  
+  @UpdateTimestamp
   private Date updatedAt;
 
   @ElementCollection private Map<UUID, Date> hashtags = new HashMap<>();
@@ -84,4 +95,21 @@ public class Posts {
   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Likes> postLikes = new ArrayList<>();
+  
+  public long incrementLikeCount()	{
+	  return ++likeCount;
+  }
+  
+	public long decrementLikeCount()	{
+		  return --likeCount;
+	  }
+	
+	public long incrementRepostCount()	{
+		  return ++repostCount;
+	}
+	
+	public long decrementRepostCount()	{
+		  return --repostCount;
+	}
+	
 }

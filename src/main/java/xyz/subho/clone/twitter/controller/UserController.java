@@ -18,6 +18,7 @@
 
 package xyz.subho.clone.twitter.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
@@ -70,19 +71,19 @@ public class UserController {
   }
 
   @PatchMapping
-  public ResponseEntity<UserModel> updateUser(@RequestBody UserModel userResponse) {
+  public ResponseEntity<UserModel> updateUser(@RequestBody UserModel userResponse, Principal principal) {
     UserModel updatedUser = userService.editUser(userResponse);
     return new ResponseEntity<>(updatedUser, HttpStatus.OK);
   }
 
   @PutMapping("/{userId}/follow")
-  public ResponseEntity<HttpStatus> addFollower(@PathVariable UUID userId) {
+  public ResponseEntity<HttpStatus> addFollower(@PathVariable UUID userId, Principal principal) {
     userService.addFollower(userId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @DeleteMapping("/{userId}/follow")
-  public ResponseEntity<HttpStatus> removeFollower(@PathVariable("userId") UUID userId) {
+  public ResponseEntity<HttpStatus> removeFollower(@PathVariable("userId") UUID userId, Principal principal) {
     userService.removeFollower(userId);
     return new ResponseEntity<>(HttpStatus.OK);
   }

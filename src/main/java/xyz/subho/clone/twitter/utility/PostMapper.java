@@ -35,7 +35,7 @@ public class PostMapper implements Mapper<Posts, PostModel> {
   }
 
   @Override
-  public Posts transformback(PostModel postModel) {
+  public Posts transformBack(PostModel postModel) {
     Posts post = new Posts();
     BeanUtils.copyProperties(postModel, post);
     return post;

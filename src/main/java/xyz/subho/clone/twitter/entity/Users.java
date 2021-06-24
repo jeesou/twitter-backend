@@ -33,12 +33,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.Data;
 
 @Entity
-@Table(name = "users")
+@Table( name = "users",
+		indexes = {@Index(columnList = "username")})
 @Data
 public class Users {
 
@@ -54,7 +60,7 @@ public class Users {
 
   private String avatar;
 
-  @Column(nullable = false, unique = true)
+  @Column(unique = true)
   private String email;
 
   @Column(length = 240)
@@ -66,12 +72,15 @@ public class Users {
   @Column(name = "following_count")
   private Long followingCount;
 
-  private Boolean verified;
+  private Boolean verified = false;
 
+  @CreatedDate
   private Date createdAt;
+  
+  @UpdateTimestamp
   private Date updatedAt;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Likes> userLikes = new ArrayList<>();
 
@@ -79,7 +88,8 @@ public class Users {
 
   @ElementCollection Map<UUID, Date> following = new HashMap<>();
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Posts> userPosts = new ArrayList<>();
+  
 }
