@@ -43,12 +43,12 @@ public class HashtagPosts {
   private UUID id;
 
   @ManyToOne
-  @JoinColumn(name = "hashtag_id")
-  private Hashtags hashtag;
+  @JoinColumn(name = "hashtags_id")
+  private Hashtags hashtags;
 
   @ManyToOne
-  @JoinColumn(name = "post_id")
-  private Posts post;
+  @JoinColumn(name = "posts_id")
+  private Posts posts;
 
   @CreatedDate
   private Date createdAt;

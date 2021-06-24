@@ -30,7 +30,7 @@ public class PostMapper implements Mapper<Posts, PostModel> {
   public PostModel transform(Posts post) {
     PostModel postModel = new PostModel();
     BeanUtils.copyProperties(post, postModel);
-    postModel.setUserId(post.getUser().getId());
+    postModel.setUserId(post.getUsers().getId());
     return postModel;
   }
 

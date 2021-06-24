@@ -43,12 +43,12 @@ public class Likes {
   private UUID id;
 
   @ManyToOne
-  @JoinColumn(name = "post_id")
-  private Posts post;
+  @JoinColumn(name = "posts_id")
+  private Posts posts;
 
   @ManyToOne(targetEntity = Users.class)
-  @JoinColumn(name = "user_id")
-  private Users user;
+  @JoinColumn(name = "users_id")
+  private Users users;
 
   @CreatedDate
   private Date createdAt;

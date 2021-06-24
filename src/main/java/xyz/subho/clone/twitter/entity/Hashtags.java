@@ -55,7 +55,7 @@ public class Hashtags {
   @Column(name = "recent_post_count")
   private Long recentPostCount;
 
-  @OneToMany(mappedBy = "hashtag", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "hashtags", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<HashtagPosts> hashtagPosts = new ArrayList<>();
 
