@@ -36,15 +36,14 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
-import lombok.Data;
-
 @Entity
-@Table( name = "users",
-		indexes = {@Index(columnList = "username")})
+@Table(
+    name = "users",
+    indexes = {@Index(columnList = "username")})
 @Data
 public class Users {
 
@@ -74,11 +73,9 @@ public class Users {
 
   private Boolean verified = false;
 
-  @CreatedDate
-  private Date createdAt;
-  
-  @UpdateTimestamp
-  private Date updatedAt;
+  @CreatedDate private Date createdAt;
+
+  @UpdateTimestamp private Date updatedAt;
 
   @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
@@ -91,5 +88,4 @@ public class Users {
   @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Posts> userPosts = new ArrayList<>();
-  
 }

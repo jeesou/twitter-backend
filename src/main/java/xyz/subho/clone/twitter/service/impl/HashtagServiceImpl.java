@@ -66,7 +66,7 @@ public class HashtagServiceImpl implements HashtagService {
     var hashtag = hashtagsRepository.findByTag(tag);
     List<Posts> posts = new ArrayList<>();
     if (null != hashtag) {
-      posts = hashtagPostsRepository.findByHashtag(hashtag);
+      posts = hashtagPostsRepository.findByHashtags(hashtag);
     }
     List<PostModel> postModels = new ArrayList<>();
     Optional.ofNullable(posts)

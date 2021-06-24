@@ -20,7 +20,6 @@ package xyz.subho.clone.twitter.service;
 
 import java.util.List;
 import java.util.UUID;
-
 import xyz.subho.clone.twitter.model.PostModel;
 
 public interface PostService {

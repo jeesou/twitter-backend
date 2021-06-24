@@ -21,7 +21,6 @@ package xyz.subho.clone.twitter.controller;
 import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,47 +44,50 @@ public class PostController {
 
   @GetMapping
   public ResponseEntity<List<PostModel>> getAllPosts() {
-    
-	 List<PostModel> posts = postService.getAllPosts();
+
+    List<PostModel> posts = postService.getAllPosts();
     return new ResponseEntity<>(posts, HttpStatus.OK);
   }
 
   @GetMapping("/{postId}")
   public ResponseEntity<PostModel> getPost(@PathVariable("postid") UUID postId) {
-   
-	  PostModel post = postService.getPost(postId);
+
+    PostModel post = postService.getPost(postId);
     return new ResponseEntity<>(post, HttpStatus.OK);
   }
 
   @PostMapping
   public ResponseEntity<PostModel> addPost(@RequestBody PostModel postModel, Principal principal) {
 
-	  UUID userId = UUID.randomUUID();	//TODO: Extract from Principal
-	  PostModel post = postService.addPost(postModel);
+    UUID userId = UUID.randomUUID(); // TODO: Extract from Principal
+    PostModel post = postService.addPost(postModel);
     return new ResponseEntity<>(post, HttpStatus.OK);
   }
 
   @DeleteMapping("/{postId}")
-  public ResponseEntity<HttpStatus> deletePost(@PathVariable("postid") UUID postId, Principal principal) {
+  public ResponseEntity<HttpStatus> deletePost(
+      @PathVariable("postid") UUID postId, Principal principal) {
 
-	  UUID userId = UUID.randomUUID();	//TODO: Extract from Principal
-	  postService.deletePost(postId, userId);
+    UUID userId = UUID.randomUUID(); // TODO: Extract from Principal
+    postService.deletePost(postId, userId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @PutMapping("/{postId}/like")
-  public ResponseEntity<HttpStatus> likePost(@PathVariable("postid") UUID postId, Principal principal) {
-   
-	  UUID userId = UUID.randomUUID();	//TODO: Extract from Principal
-	  postService.addLike(postId, userId);
+  public ResponseEntity<HttpStatus> likePost(
+      @PathVariable("postid") UUID postId, Principal principal) {
+
+    UUID userId = UUID.randomUUID(); // TODO: Extract from Principal
+    postService.addLike(postId, userId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @DeleteMapping("/{postId}/like")
-  public ResponseEntity<HttpStatus> removeLikePost(@PathVariable("postid") UUID postId, Principal principal) {
+  public ResponseEntity<HttpStatus> removeLikePost(
+      @PathVariable("postid") UUID postId, Principal principal) {
 
-	  UUID userId = UUID.randomUUID();	//TODO: Extract from Principal
-	  postService.removeLike(postId, userId);
+    UUID userId = UUID.randomUUID(); // TODO: Extract from Principal
+    postService.removeLike(postId, userId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

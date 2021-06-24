@@ -39,8 +39,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table( name = "hashtags",
-		indexes = {@Index(columnList = "tag")})
+@Table(
+    name = "hashtags",
+    indexes = {@Index(columnList = "tag")})
 @Data
 public class Hashtags {
 
@@ -49,7 +50,7 @@ public class Hashtags {
   @Type(type = "uuid-char")
   private UUID id;
 
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String tag;
 
   @Column(name = "recent_post_count")
@@ -59,10 +60,7 @@ public class Hashtags {
   @JsonIgnore
   private List<HashtagPosts> hashtagPosts = new ArrayList<>();
 
-  @CreatedDate
-  private Date createdAt;
-  
-  @UpdateTimestamp
-  private Date updatedAt;
-  
+  @CreatedDate private Date createdAt;
+
+  @UpdateTimestamp private Date updatedAt;
 }

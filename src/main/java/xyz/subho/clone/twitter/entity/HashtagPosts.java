@@ -27,11 +27,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-
-import lombok.Data;
 
 @Entity
 @Table(name = "hashtag_posts")
@@ -50,10 +48,7 @@ public class HashtagPosts {
   @JoinColumn(name = "posts_id")
   private Posts posts;
 
-  @CreatedDate
-  private Date createdAt;
-  
-  @UpdateTimestamp
-  private Date updatedAt;
-  
+  @CreatedDate private Date createdAt;
+
+  @UpdateTimestamp private Date updatedAt;
 }

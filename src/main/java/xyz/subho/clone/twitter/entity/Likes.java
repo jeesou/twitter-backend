@@ -27,11 +27,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-
-import lombok.Data;
 
 @Entity
 @Table(name = "likes")
@@ -50,10 +48,7 @@ public class Likes {
   @JoinColumn(name = "users_id")
   private Users users;
 
-  @CreatedDate
-  private Date createdAt;
-  
-  @UpdateTimestamp
-  private Date updatedAt;
-  
+  @CreatedDate private Date createdAt;
+
+  @UpdateTimestamp private Date updatedAt;
 }
