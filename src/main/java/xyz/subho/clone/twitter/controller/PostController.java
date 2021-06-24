@@ -58,8 +58,9 @@ public class PostController {
   }
 
   @PostMapping
-  public ResponseEntity<PostModel> addPost(@RequestBody PostModel postModel) {
-    
+  public ResponseEntity<PostModel> addPost(@RequestBody PostModel postModel, Principal principal) {
+
+	  UUID userId = UUID.randomUUID();	//TODO: Extract from Principal
 	  PostModel post = postService.addPost(postModel);
     return new ResponseEntity<>(post, HttpStatus.OK);
   }

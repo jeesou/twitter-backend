@@ -65,38 +65,34 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<UserModel> createUser(@RequestBody UserModel userResponse) {
-    UserModel createdUser = userService.addUser(userResponse);
-    return new ResponseEntity<>(createdUser, HttpStatus.OK);
+  public UserModel createUser(@RequestBody UserModel userResponse) {
+    return userService.addUser(userResponse);
   }
 
   @PatchMapping
-  public ResponseEntity<UserModel> updateUser(@RequestBody UserModel userResponse, Principal principal) {
-    UserModel updatedUser = userService.editUser(userResponse);
-    return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+  public UserModel updateUser(@RequestBody UserModel userResponse, Principal principal) {
+    return userService.editUser(userResponse);
   }
 
   @PutMapping("/{userId}/follow")
-  public ResponseEntity<HttpStatus> addFollower(@PathVariable UUID userId, Principal principal) {
+  public Boolean addFollower(@PathVariable UUID userId, Principal principal) {
     userService.addFollower(userId);
-    return new ResponseEntity<>(HttpStatus.OK);
+    return true;
   }
 
   @DeleteMapping("/{userId}/follow")
-  public ResponseEntity<HttpStatus> removeFollower(@PathVariable("userId") UUID userId, Principal principal) {
+  public Boolean removeFollower(@PathVariable("userId") UUID userId, Principal principal) {
     userService.removeFollower(userId);
-    return new ResponseEntity<>(HttpStatus.OK);
+    return true;
   }
 
   @GetMapping("/{userId}/followers")
-  public ResponseEntity<List<UserModel>> getFollowers(@PathVariable("userId") UUID userId) {
-    List<UserModel> followers = userService.getFollowers(userId);
-    return new ResponseEntity<>(followers, HttpStatus.OK);
+  public List<UserModel> getFollowers(@PathVariable("userId") UUID userId) {
+    return userService.getFollowers(userId);
   }
 
   @GetMapping("/{userId}/followings")
-  public ResponseEntity<List<UserModel>> getFollowings(@PathVariable("userId") UUID userId) {
-    List<UserModel> followings = userService.getFollowings(userId);
-    return new ResponseEntity<>(followings, HttpStatus.OK);
+  public List<UserModel> getFollowings(@PathVariable("userId") UUID userId) {
+    return userService.getFollowings(userId);
   }
 }
