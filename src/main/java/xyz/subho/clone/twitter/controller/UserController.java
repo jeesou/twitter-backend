@@ -55,18 +55,22 @@ public class UserController {
     UserModel userResponse;
 
     if (userNameOrUserId.startsWith("@")) {
+      log.info("input resource is a username");
       var username = userNameOrUserId.substring(1);
       userResponse = userService.getUserByUserName(username);
       return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
+
+    log.info("input resource is a UUID");
     var userId = utility.converStringToUUID(userNameOrUserId);
     userResponse = userService.getUserByUserId(userId);
     return new ResponseEntity<>(userResponse, HttpStatus.OK);
   }
 
   @PostMapping
-  public UserModel createUser(@RequestBody UserModel userResponse) {
-    return userService.addUser(userResponse);
+  public ResponseEntity<UserModel> createUser(@RequestBody UserModel userResponse) {
+    var user = userService.addUser(userResponse);
+    return new ResponseEntity<>(user, HttpStatus.CREATED);
   }
 
   @PatchMapping
@@ -75,15 +79,16 @@ public class UserController {
   }
 
   @PutMapping("/{userId}/follow")
-  public Boolean addFollower(@PathVariable UUID userId, Principal principal) {
+  public ResponseEntity<HttpStatus> addFollower(@PathVariable UUID userId, Principal principal) {
     userService.addFollower(userId);
-    return true;
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{userId}/follow")
-  public Boolean removeFollower(@PathVariable("userId") UUID userId, Principal principal) {
+  public ResponseEntity<HttpStatus> removeFollower(
+      @PathVariable("userId") UUID userId, Principal principal) {
     userService.removeFollower(userId);
-    return true;
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @GetMapping("/{userId}/followers")

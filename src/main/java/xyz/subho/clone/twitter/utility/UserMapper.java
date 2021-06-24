@@ -16,23 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package xyz.subho.clone.twitter.service;
+package xyz.subho.clone.twitter.utility;
 
-import java.util.List;
-import java.util.UUID;
-import xyz.subho.clone.twitter.model.PostModel;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
+import xyz.subho.clone.twitter.entity.Users;
+import xyz.subho.clone.twitter.model.UserModel;
 
-public interface PostService {
+@Component("UserMapper")
+public class UserMapper implements Mapper<Users, UserModel> {
 
-  public List<PostModel> getAllPosts();
+  @Override
+  public UserModel transform(Users user) {
+    var userModel = new UserModel();
+    BeanUtils.copyProperties(user, userModel);
+    return userModel;
+  }
 
-  public PostModel getPost(UUID postId);
-
-  public PostModel addPost(PostModel postModel);
-
-  public boolean deletePost(UUID postId, UUID userId);
-
-  public long addLike(UUID postId, UUID userId);
-
-  public long removeLike(UUID postId, UUID userId);
+  @Override
+  public Users transformBack(UserModel userModel) {
+    var user = new Users();
+    BeanUtils.copyProperties(userModel, user);
+    return user;
+  }
 }

@@ -16,23 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package xyz.subho.clone.twitter.service;
+package xyz.subho.clone.twitter.exception;
 
-import java.util.List;
-import java.util.UUID;
-import xyz.subho.clone.twitter.model.PostModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public interface PostService {
+@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+public class ErrorSavingEntityToDatabaseException extends RuntimeException {
 
-  public List<PostModel> getAllPosts();
+  public ErrorSavingEntityToDatabaseException() {
+    super();
+  }
 
-  public PostModel getPost(UUID postId);
+  public ErrorSavingEntityToDatabaseException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 
-  public PostModel addPost(PostModel postModel);
+  public ErrorSavingEntityToDatabaseException(final String message) {
+    super(message);
+  }
 
-  public boolean deletePost(UUID postId, UUID userId);
-
-  public long addLike(UUID postId, UUID userId);
-
-  public long removeLike(UUID postId, UUID userId);
+  public ErrorSavingEntityToDatabaseException(final Throwable cause) {
+    super(cause);
+  }
 }
